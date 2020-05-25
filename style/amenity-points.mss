@@ -61,7 +61,7 @@
     }
   }
 
-  [feature = 'amenity_atm'][zoom >= 19] {
+  [feature = 'amenity_atm'][zoom >= 18] {
     marker-file: url('symbols/amenity/atm.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -110,7 +110,7 @@
       marker-file: url('symbols/amenity/restaurant.svg');
     }
     [feature = 'amenity_ice_cream'][zoom >= 18] {
-      marker-file: url('symbols/shop/ice_cream.svg');
+      marker-file: url('symbols/amenity/ice_cream.svg');
     }
     [feature = 'amenity_pub'][zoom >= 18] {
       marker-file: url('symbols/amenity/pub.svg');
@@ -386,8 +386,7 @@
       marker-fill: @amenity-brown;
     }
     [information = 'map'],
-    [information = 'tactile_map'],
-    [information = 'tactile_model'] {
+    [information = 'tactile_map'] {
       marker-file: url('symbols/tourism/map.svg');
     }
     [information = 'terminal'] {
@@ -664,7 +663,7 @@
     marker-clip: false;
   }
 
-  [feature = 'amenity_post_box'][zoom >= 19] {
+  [feature = 'amenity_post_box'][zoom >= 18] {
     marker-file: url('symbols/amenity/post_box.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -692,7 +691,7 @@
     marker-clip: false;
   }
 
-  [feature = 'emergency_phone'][zoom >= 19] {
+  [feature = 'emergency_phone'][zoom >= 18] {
     marker-file: url('symbols/amenity/emergency_phone.svg');
     marker-fill: @amenity-brown;
     marker-clip: false;
@@ -1019,10 +1018,6 @@
 
     [shop = 'houseware'][zoom >= 18] {
       marker-file: url('symbols/shop/houseware.svg');
-    }
-
-    [shop = 'ice_cream'][zoom >= 18] {
-      marker-file: url('symbols/shop/ice_cream.svg');
     }
 
     [shop = 'car'][zoom >= 18] {
@@ -1382,6 +1377,11 @@
     marker-clip: false;
   }
 
+  [feature = 'natural_spring'][zoom >= 14] {
+    marker-file: url('symbols/spring.svg');
+    marker-clip: false;
+  }
+
   [feature = 'natural_cave_entrance'][zoom >= 15] {
     marker-file: url('symbols/natural/cave.svg');
     marker-clip: false;
@@ -1619,6 +1619,17 @@
       text-fill: @placenames-light;
       text-halo-fill: white;
     }
+  }
+
+  [feature = 'place_square'][zoom >= 17] {
+    text-name: "[name]";
+    text-size: 11;
+    text-face-name: @book-fonts;
+    text-halo-fill: @standard-halo-fill;
+    text-halo-radius: @standard-halo-radius * 1.5;
+    text-wrap-width: 45; // 4.5 em
+    text-line-spacing: -0.8; // -0.08 em
+    text-margin: 7.0; // 0.7 em
   }
 
   [feature = 'amenity_pub'][zoom >= 18],
@@ -2151,6 +2162,7 @@
   [feature = 'landuse_brownfield'],
   [feature = 'landuse_landfill'],
   [feature = 'landuse_construction'],
+  [feature = 'landuse_salt_pond'],
   [feature = 'tourism_theme_park'],
   [feature = 'tourism_zoo'],
   [feature = 'amenity_kindergarten'],
@@ -2194,7 +2206,8 @@
       text-halo-fill: @standard-halo-fill;
       [feature = 'natural_reef'],
       [feature = 'natural_wetland'],
-      [feature = 'natural_mud'] {
+      [feature = 'natural_mud'],
+      [feature = 'landuse_salt_pond'] {
         text-fill: @wetland-text;
       }
       [feature = 'leisure_park'],
@@ -2686,9 +2699,7 @@
   }
 
   [feature = 'power_plant'][is_building = 'no'][zoom >= 10],
-  [feature = 'power_station'][is_building = 'no'][zoom >= 10],
   [feature = 'power_generator'][is_building = 'no']["generator:source" != 'wind'][zoom >= 10],
-  [feature = 'power_sub_station'][is_building = 'no'][zoom >= 13],
   [feature = 'power_substation'][is_building = 'no'][zoom >= 13]{
     [way_pixels > 3000],
     [zoom >= 17] {
@@ -2982,19 +2993,6 @@
       line-width: 1;
       [zoom >= 18] { line-width: 2; }
       [zoom >= 19] { line-width: 4; }
-
-      [zoom >= 19] {
-        text-name: "[name]";
-        text-size: 10;
-        text-face-name: @oblique-fonts;
-        text-fill: darken(@pitch, 40%);
-        text-halo-radius: @standard-halo-radius;
-        text-halo-fill: @standard-halo-fill;
-        text-placement: line;
-        text-vertical-alignment: middle;
-        text-repeat-distance: @waterway-text-repeat-distance;
-        text-dy: 8;
-      }
     }
   }
 
@@ -3013,20 +3011,37 @@
       line-width: 1;
       [zoom >= 18] { line-width: 2; }
       [zoom >= 19] { line-width: 4; }
-
-      [zoom >= 19] {
-        text-name: "[name]";
-        text-size: 10;
-        text-face-name: @oblique-fonts;
-        text-fill: darken(@pitch, 40%);
-        text-halo-radius: @standard-halo-radius;
-        text-halo-fill: @standard-halo-fill;
-        text-placement: line;
-        text-vertical-alignment: middle;
-        text-repeat-distance: @waterway-text-repeat-distance;
-        text-dy: 8;
-      }
     }
+  }
+}
+
+#text-line {
+  [feature = 'leisure_track'],
+  [feature = 'attraction_water_slide'] {
+    [zoom >= 19] {
+      text-name: "[name]";
+      text-size: 10;
+      text-face-name: @oblique-fonts;
+      text-fill: darken(@pitch, 40%);
+      text-halo-radius: @standard-halo-radius;
+      text-halo-fill: @standard-halo-fill;
+      text-placement: line;
+      text-vertical-alignment: middle;
+      text-repeat-distance: @waterway-text-repeat-distance;
+      text-dy: 8;
+    }
+  }
+
+  [feature = 'leisure_slipway'][zoom >= 17] {
+    text-name: "[name]";
+    text-size: @standard-font-size;
+    text-wrap-width: @standard-wrap-width;
+    text-line-spacing: @standard-line-spacing-size;
+    text-fill: @transportation-text;
+    text-dy: 13;
+    text-face-name: @standard-font;
+    text-halo-radius: @standard-halo-radius;
+    text-halo-fill: @standard-halo-fill;
   }
 }
 
