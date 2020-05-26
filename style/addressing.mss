@@ -18,7 +18,15 @@
       ["addr_housename" != null] {
         text-name: [addr_housenumber] + "\n" + [addr_housename];
       }
-
+    }
+    ["ref" != null] {
+      text-name: "[ref]";
+      ["addr_housenumber" != null] {
+        text-name: [addr_housenumber] + " " + [ref];
+        ["addr_housename" != null] {
+          text-name: [addr_housenumber] + " " + [ref] + "\n" + [addr_housename];
+        }
+      }
     }
     text-face-name: @book-fonts;
     text-fill: @address-color;
